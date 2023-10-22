@@ -48,12 +48,16 @@ function Nav1() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [navVisible, setNavVisible] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [buttonRotate, setButtonRotate] = useState(false);
   
   const displayNav = classNames('nav', {
-    open: navVisible
+    show: navVisible
   });
 
   const displayMenu = classNames('nav-links', {
+    open: menuVisible
+  });
+  const rotateButton = classNames('menu-button', {
     open: menuVisible
   });
 
@@ -88,6 +92,10 @@ function Nav1() {
     
   }, [prevScrollPos, navVisible, handleScroll])
 
+  useEffect(() => {
+
+  }, [displayNav])
+
   //Next up: transition button
 
   return (
@@ -100,7 +108,7 @@ function Nav1() {
       </div>
       <div className="nav-container">
         <span>
-          <button className="menu-button"
+          <button className={rotateButton}
             onClick={() => {
               setMenuVisible((menuVisible) => !menuVisible)
             }}
@@ -110,7 +118,6 @@ function Nav1() {
             <div className='bar-three'></div>
           </button>
         </span>
-        <div className={displayMenu}>
         <ul className={displayMenu}>
           {
             links.length > 0 && links.map( (link, index) => {
@@ -134,7 +141,6 @@ function Nav1() {
             })
           }
         </ul>
-        </div>
       </div>
     </div>
   );

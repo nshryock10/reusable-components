@@ -22,7 +22,7 @@
     transition: top 0.4s;
 }
 
-.nav.open{
+.nav.show{
     top: 0;
 }
 
@@ -30,6 +30,7 @@
     display: flex;
     flex-direction: column;
 }
+
 
 .menu-button {
     display: flex;
@@ -47,10 +48,33 @@
     height: 3px;
     background-color: var(--nav-font-color);
     border-radius: 10px;
+    transition: all 0.3s;
+    transform-origin: -2.95px;
 }
 
-.nav-link-container {
-    
+.bar-one {
+    transform: rotate(0);
+}
+
+.bar-two {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.bar-three {
+    transform: rotate(0);
+}
+
+.open .bar-one {
+    transform: rotate(45deg);
+}
+
+.open .bar-two {
+    transform: translateX(20px);
+    opacity: 0;
+}
+.open .bar-three {
+    transform: rotate(-45deg);
 }
 
 .nav-links{
@@ -83,6 +107,7 @@
         
     transition: all 0.2s;
 }
+
 a {
     display: inline-block;
     position: relative;
