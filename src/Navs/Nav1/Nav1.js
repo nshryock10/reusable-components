@@ -88,6 +88,8 @@ function Nav1() {
     
   }, [prevScrollPos, navVisible, handleScroll])
 
+  //Next up: transition button
+
   return (
     <div className={displayNav}>
       <div className="icon-container"> 
@@ -108,13 +110,18 @@ function Nav1() {
             <div className='bar-three'></div>
           </button>
         </span>
+        <div className={displayMenu}>
         <ul className={displayMenu}>
           {
             links.length > 0 && links.map( (link, index) => {
               if(link.type == 'href'){
                 return (
-                  <li className="nav-item" key={index}>
-                    <a href={link.link} className='nav-link'>{link.name}</a>
+                  <li 
+                    className="nav-item" key={index}
+                    onClick={() => setMenuVisible((menuVisible) => !menuVisible)}
+                  >
+                    <a href={link.link} className='nav-link'
+                    >{link.name}</a>
                   </li>
                 )
               }else{
@@ -127,6 +134,7 @@ function Nav1() {
             })
           }
         </ul>
+        </div>
       </div>
     </div>
   );
