@@ -12,15 +12,18 @@ function Nav1() {
   const links = [
     {
       name: "Home",
-      link: "" //enter home link
+      link: "#100", //enter home link
+      type: 'href' //enter href for sections or external to use url
     },
     {
       name: "About",
-      link: "", //add you home link here. A link is not require and may just group sub-links
+      link: "https://app.tryfiit.com/", //add you home link here. A link is not require and may just group sub-links
+      type: 'href',
       subMenu: [
         {
           name: "Our Mission",
-          link: ""
+          link: "",
+          type: 'href'
         },
         {
           name: "Our Culture",
@@ -43,12 +46,16 @@ function Nav1() {
   const smallIcon = "" 
 
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const [navVisible, setNavVisible] = useState(true)
+  const [navVisible, setNavVisible] = useState(true);
+  const [menuVisible, setMenuVisible] = useState(false);
   
   const displayNav = classNames('nav', {
     open: navVisible
-  })
+  });
+
+  const displayMenu = classNames('nav-links', {
+    open: menuVisible
+  });
 
   //Debounce helper function to help smooth scroll up transition
   const debounce = (func, wait, immediate) => {
@@ -69,7 +76,7 @@ function Nav1() {
   const handleScroll = debounce(() => {
     const currentScrollPos = window.pageYOffset;
 
-    setNavVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 30 || currentScrollPos < 10 ));
+    setNavVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 30 || currentScrollPos < 20 ));
 
     setPrevScrollPos(currentScrollPos)
   }, 40)
@@ -89,15 +96,37 @@ function Nav1() {
       <div className="main-logo-container">
         <img></img>
       </div>
-      <div className="nav-links">
+      <div className="nav-container">
         <span>
-          <button className="menu-button">
+          <button className="menu-button"
+            onClick={() => {
+              setMenuVisible((menuVisible) => !menuVisible)
+            }}
+          >
             <div className='bar-one' ></div>
             <div className='bar-two' ></div>
             <div className='bar-three'></div>
           </button>
         </span>
-
+        <ul className={displayMenu}>
+          {
+            links.length > 0 && links.map( (link, index) => {
+              if(link.type == 'href'){
+                return (
+                  <li className="nav-item" key={index}>
+                    <a href={link.link} className='nav-link'>{link.name}</a>
+                  </li>
+                )
+              }else{
+                return(
+                <li className="nav-item" key={index}>
+                    <a url={link.link} className='nav-link'>{link.name}</a>
+                </li>)
+              }
+              
+            })
+          }
+        </ul>
       </div>
     </div>
   );
